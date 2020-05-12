@@ -1,0 +1,17 @@
+int Solution::gcd(int A, int B) {
+    /*if(B==0)
+    return A;
+    return gcd(B,A%B);
+    */
+    int x,y,t,gcd;
+    x=A;
+    y=B;
+    while(y!=0)
+    {
+        t=y;
+        y=x%y;
+        x=t;
+    }
+    gcd=x;
+    return gcd;
+}

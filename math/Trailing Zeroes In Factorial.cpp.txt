@@ -1,0 +1,15 @@
+int Solution::trailingZeroes(int A) {
+    int count=0;
+    /*while(A)
+    {
+        count+=A/5;
+        A/=5;
+    }
+    return count;*/
+    
+    for(int i=5;A/i>0;i*=5)
+    {
+        count+=A/i;
+    }
+    return count;
+}
