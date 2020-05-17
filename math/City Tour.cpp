@@ -24,7 +24,7 @@ int Solution::solve(int A, vector<int> &B)
     
     long long n1 = fact[A-n];//total combinations
     long long n2 = 1;//permutations among each group
-    long long d  = 1;//repeated combinations // denominator
+    long long d  = 1;//repeated combinations
   
     for(int i=1 ; i<n ; i++)
     {   
