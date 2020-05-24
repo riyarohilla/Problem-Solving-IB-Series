@@ -23,7 +23,6 @@ void printSpiral(Node *root)
             }
             else
             {
-                
                 if(temp->left)
                 next.push(temp->left);
                 if(temp->right)
