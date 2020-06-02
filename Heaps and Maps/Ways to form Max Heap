@@ -1,0 +1,31 @@
+#define mod 1000000007
+int Solution::solve(int A) {
+    vector<vector<long long>>v(A+2,vector<long long>(A+2,0));
+    for(int i=0;i<=A;i++)
+    v[i][0]=v[i][i]=1;
+    for(int i=1;i<=A;i++){
+        for(int j=1;j<i;j++)
+        {
+            v[i][j]=(v[i-1][j]+v[i-1][j-1])%mod;
+        }
+        
+    }
+    vector<long long>ans(A+2,0);
+    ans[0]=ans[1]=ans[2]=1;
+    for(int i=3;i<=A;i++)
+    {
+        long long l=0,r=0;
+        int k=0,t=i;
+        while(t>0)
+        {
+            t/=2;
+            k++;
+        }
+        k--;
+        int m=1+i-(1<<k);
+        l=-1+(1<<(k-1))+min((1<<(k-1)),m);
+        r=i-1-l;
+        ans[i]=(((v[i-1][r]*ans[l])%mod)*ans[r])%mod;
+    }
+    return ans[A];
+}
