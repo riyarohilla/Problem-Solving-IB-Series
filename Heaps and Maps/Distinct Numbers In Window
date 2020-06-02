@@ -1,0 +1,34 @@
+vector<int> Solution::dNums(vector<int> &A, int k) {
+    vector<int>ans;
+    int n=A.size();
+    if(n<k)
+    return ans;
+    unordered_map<int,int>m;
+    for(int i=0;i<k;i++)
+    {
+        if(m.find(A[i])==m.end())
+        m[A[i]]=1;
+        else
+        m[A[i]]++;
+    
+    }
+        ans.push_back(m.size());
+    if(n==k)
+    return ans;
+    int j=0;
+    for(int i=k;i<n;i++)
+    {
+        if(m[A[j]]>1)
+        m[A[j]]-=1;
+        else
+        m.erase(A[j]);
+        j++;
+        if(m.find(A[i])==m.end())
+        m[A[i]]=1;
+        else
+        m[A[i]]++;
+        ans.push_back(m.size());
+    }
+    return ans;
+    
+  }
