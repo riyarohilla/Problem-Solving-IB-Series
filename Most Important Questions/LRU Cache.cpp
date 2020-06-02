@@ -24,45 +24,55 @@ cache.get(3);       // returns 3
 cache.get(4);       // returns 4
 */
 
-class LRUCache
-{
-    public:
-    LRUCache(int capacity) : _capacity(capacity) {
+#include<bits/stdc++.h>
         
+int n;
+list<pair<int,int>>dq;
+map<int,list<pair<int,int>>::iterator> m;
+LRUCache::LRUCache(int capacity) 
+{
+    dq.clear();
+    m.clear();
+    n=capacity;
+}
+void insert(int key,int value)
+{
+    if(m.find(key)!=m.end())
+    {
+        dq.erase(m[key]);
+        dq.push_front({key,value});
+        m[key] = dq.begin();    
     }
-      int get(int key) {
-    auto it = cache.find(key);
-        if (it == cache.end()) 
-            return -1;
-        func(it);
-        return it->second.first;
-    }
-    
-void put(int key, int value) {
-        auto it = cache.find(key);
-        if (it != cache.end())
-            func(it);
-        else {
-			if (cache.size() == _capacity) {
-				cache.erase(used.back());
-				used.pop_back();
-			}
-            used.push_front(key);
+    else 
+    {
+        if(dq.size()==n)
+        {
+            pair<int,int> v=dq.back();
+            dq.pop_back();
+            m.erase(v.first);
+             dq.push_front({key,value});
+             m[key] = dq.begin();
         }
-        cache[key] = { value, used.begin() };
+        else
+        { 
+            dq.push_front({key,value});
+            m[key] = dq.begin();
+        }
+    }
+}
+int LRUCache::get(int key) 
+{
+    if(m.find(key)==m.end())
+    return -1;
+    else
+    {
+        int val=m[key]->second;
+        insert(key,val);
+        return val;   
     }
     
-private:
-    
-    
-    void func(unordered_map<int,pair<int,list<int>::iterator>>::iterator it) {
-        int key = it->first;
-        used.erase(it->second.second);
-        used.push_front(key);
-        it->second.second = used.begin();
-    }
-    
-   unordered_map<int,pair<int,list<int>::iterator>> cache;
-list<int>used;
-    int _capacity;
-};
+}
+void LRUCache::set(int key, int value) 
+{
+    insert(key,value);
+}
