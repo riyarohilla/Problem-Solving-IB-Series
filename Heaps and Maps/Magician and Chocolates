@@ -1,0 +1,15 @@
+#define mod 1000000007
+int Solution::nchoc(int k, vector<int> &A) {
+    int n=A.size();
+    long long sum=0;
+    priority_queue<int>hp(A.begin(),A.end());
+    while(k--)
+    {
+        long long maxchoc=hp.top();
+     
+        sum=(sum+maxchoc)%mod;
+        hp.pop();
+        hp.push((int)(maxchoc/2));
+    }
+    return sum;
+}
